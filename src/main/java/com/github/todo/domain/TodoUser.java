@@ -2,6 +2,7 @@ package com.github.todo.domain;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
@@ -26,14 +27,18 @@ public class TodoUser {
 
     public TodoUser(final String userName, final String password) {
         this.userName = userName;
-        this.password = password;
+        this.password = this.encodePassword(password);
     }
 
     public void assignUserName(final String userName) {
         this.userName = userName;
     }
 
-    public void assignPassword(final String password) {
-        this.password = password;
+    public void changePassword(final String password) {
+        this.password = this.encodePassword(password);
+    }
+
+    private String encodePassword(String password) {
+        return new BCryptPasswordEncoder().encode(password);
     }
 }
