@@ -1,18 +1,18 @@
-package com.github.todo.service;
+package com.github.todo.applicaiton;
 
-import com.github.todo.domain.TodoUser;
-import com.github.todo.parameter.UserRegisterParameter;
-import com.github.todo.repository.TodoUserRepository;
+import com.github.todo.domain.user.TodoUser;
+import com.github.todo.applicaiton.dto.UserRegisterParameter;
+import com.github.todo.domain.user.TodoUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TodoUserService {
+public class TodoUserApplicationService {
 
     private final TodoUserRepository repository;
 
     @Autowired
-    public TodoUserService(final TodoUserRepository repository) {
+    public TodoUserApplicationService(final TodoUserRepository repository) {
         this.repository = repository;
     }
 

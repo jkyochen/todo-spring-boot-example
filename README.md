@@ -16,3 +16,8 @@ mvn test
 # start serve
 mvn spring-boot:run
 ```
+
+## References
+
+https://github.com/fenixsoft/monolithic_arch_springboot
+https://github.com/dreamhead/geektime-todo

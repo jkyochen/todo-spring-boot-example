@@ -1,4 +1,4 @@
-package com.github.todo.domain;
+package com.github.todo.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.*;

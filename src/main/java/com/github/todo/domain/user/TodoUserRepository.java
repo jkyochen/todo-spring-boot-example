@@ -1,6 +1,5 @@
-package com.github.todo.repository;
+package com.github.todo.domain.user;
 
-import com.github.todo.domain.TodoUser;
 import org.springframework.data.repository.Repository;
 
 public interface TodoUserRepository extends Repository<TodoUser, Long> {

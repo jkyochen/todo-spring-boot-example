@@ -1,4 +1,4 @@
-package com.github.todo.parameter;
+package com.github.todo.applicaiton.dto;
 
 import com.google.common.base.Strings;
 import lombok.Getter;
