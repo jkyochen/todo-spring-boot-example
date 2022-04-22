@@ -17,6 +17,11 @@ mvn test
 mvn spring-boot:run
 ```
 
+## Tips
+
+1. Constructor injection simplifies writing unit tests.
+2. `final` first.
+
 ## References
 
 https://github.com/fenixsoft/monolithic_arch_springboot
