@@ -1,4 +1,4 @@
-package com.github.todo.applicaiton.dto;
+package com.github.todo.applicaiton.user.dto;
 
 import com.google.common.base.Strings;
 import lombok.Getter;

@@ -12,8 +12,8 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Entity
-@Table(name = "todo_users")
-public class TodoUser {
+@Table(name = "users")
+public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -25,7 +25,7 @@ public class TodoUser {
     @Column
     private String password;
 
-    public TodoUser(final String userName, final String password) {
+    public User(final String userName, final String password) {
         this.userName = userName;
         this.password = this.encodePassword(password);
     }
