@@ -1,10 +1,12 @@
 package com.github.todo.applicaiton.user;
 
 import com.github.todo.domain.user.User;
-import com.github.todo.applicaiton.user.dto.UserRegisterParameter;
+import com.github.todo.applicaiton.user.dto.UserLoginParameter;
 import com.github.todo.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserApplicationService {
@@ -16,7 +18,7 @@ public class UserApplicationService {
         this.repository = repository;
     }
 
-    public User register(final UserRegisterParameter userRegisterParameter) {
+    public User register(final UserLoginParameter userRegisterParameter) {
         if (userRegisterParameter == null) {
             throw new IllegalArgumentException("Null or empty content is not allowed");
         }
@@ -26,6 +28,24 @@ public class UserApplicationService {
 
         final User user = new User(userRegisterParameter.getUsername(), userRegisterParameter.getPassword());
         return this.repository.save(user);
+    }
+
+    public User login(final UserLoginParameter userLoginParameter) {
+        if (userLoginParameter == null) {
+            throw new IllegalArgumentException("Null or empty content is not allowed");
+        }
+
+        Optional<User> optionalUser = this.repository.findByUsername(userLoginParameter.getUsername());
+        if (optionalUser.isEmpty()) {
+            throw new IllegalArgumentException("Can't find user");
+        }
+
+        User user = optionalUser.get();
+        if (!user.validatePassword(userLoginParameter.getPassword())) {
+            throw new IllegalArgumentException("Password is error");
+        }
+
+        return user;
     }
 
 }

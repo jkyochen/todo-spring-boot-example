@@ -19,22 +19,26 @@ import javax.persistence.Table;
 public class User extends BaseEntity {
 
     @Column(name = "user_name")
-    private String userName;
+    private String username;
 
     @Column
     private String password;
 
     public User(final String userName, final String password) {
-        this.userName = userName;
+        this.username = userName;
         this.password = this.encodePassword(password);
     }
 
-    public void assignUserName(final String userName) {
-        this.userName = userName;
+    public void assignUserName(final String username) {
+        this.username = username;
     }
 
     public void changePassword(final String password) {
         this.password = this.encodePassword(password);
+    }
+
+    public boolean validatePassword(final String password) {
+        return new BCryptPasswordEncoder().matches(password, this.password);
     }
 
     private String encodePassword(String password) {
