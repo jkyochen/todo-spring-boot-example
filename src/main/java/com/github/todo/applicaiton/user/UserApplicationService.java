@@ -20,8 +20,11 @@ public class UserApplicationService {
         if (userRegisterParameter == null) {
             throw new IllegalArgumentException("Null or empty content is not allowed");
         }
+        if (this.repository.existsByUsername(userRegisterParameter.getUsername())) {
+            throw new IllegalArgumentException("Existed username");
+        }
 
-        final User user = new User(userRegisterParameter.getUserName(), userRegisterParameter.getPassword());
+        final User user = new User(userRegisterParameter.getUsername(), userRegisterParameter.getPassword());
         return this.repository.save(user);
     }
 
