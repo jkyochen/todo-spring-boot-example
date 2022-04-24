@@ -1,10 +1,13 @@
 package com.github.todo.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.github.todo.domain.BaseEntity;
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @EqualsAndHashCode
 @Getter
@@ -13,11 +16,7 @@ import javax.persistence.*;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Entity
 @Table(name = "users")
-public class User {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long userId;
+public class User extends BaseEntity {
 
     @Column(name = "user_name")
     private String userName;
