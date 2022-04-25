@@ -30,22 +30,19 @@ public class UserApplicationService {
         return this.repository.save(user);
     }
 
-    public User login(final UserLoginParameter userLoginParameter) {
+    public Optional<User> login(final UserLoginParameter userLoginParameter) {
         if (userLoginParameter == null) {
             throw new IllegalArgumentException("Null or empty content is not allowed");
         }
 
         Optional<User> optionalUser = this.repository.findByUsername(userLoginParameter.getUsername());
-        if (optionalUser.isEmpty()) {
-            throw new IllegalArgumentException("Can't find user");
-        }
 
-        User user = optionalUser.get();
-        if (!user.validatePassword(userLoginParameter.getPassword())) {
-            throw new IllegalArgumentException("Password is error");
-        }
-
-        return user;
+        return optionalUser.flatMap(user -> {
+            if (!user.validatePassword(userLoginParameter.getPassword())) {
+                throw new IllegalArgumentException("Password is error");
+            }
+            return Optional.of(user);
+        });
     }
 
 }

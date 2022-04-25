@@ -43,8 +43,9 @@ public class UserApplicationServiceTest {
     public void should_login_user() {
         final User foo = new User("foo", "123");
         when(repository.findByUsername(any())).thenReturn(Optional.of(foo));
-        User user = service.login(UserLoginParameter.of("foo", "123"));
-        assertThat(user.getUsername()).isEqualTo("foo");
+        Optional<User> user = service.login(UserLoginParameter.of("foo", "123"));
+        assertThat(user.isPresent()).isEqualTo(true);
+        assertThat(user.get().getUsername()).isEqualTo("foo");
     }
 
     @Test

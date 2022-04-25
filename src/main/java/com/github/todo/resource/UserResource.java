@@ -2,6 +2,7 @@ package com.github.todo.resource;
 
 import com.github.todo.applicaiton.user.UserApplicationService;
 import com.github.todo.applicaiton.user.dto.UserLoginParameter;
+import com.github.todo.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 public class UserResource {
@@ -34,7 +36,11 @@ public class UserResource {
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody final UserLoginParameter request) {
-        this.service.login(request);
+        Optional<User> user = this.service.login(request);
+
+        if (user.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.ok().build();
     }
 }
