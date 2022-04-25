@@ -15,10 +15,9 @@ import javax.persistence.Table;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Entity
-@Table(name = "users")
 public class User extends BaseEntity {
 
-    @Column(name = "user_name")
+    @Column
     private String username;
 
     @Column
