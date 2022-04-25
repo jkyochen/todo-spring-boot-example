@@ -28,10 +28,12 @@ public class TodoApplicationService {
 
     public Optional<Todo> markTodoDone(final TodoIndexParameter todoIndexParameter) {
         Optional<Todo> optionalTodo = this.repository.findById(todoIndexParameter.getIndex());
-        return optionalTodo.flatMap(todoItem -> {
-            todoItem.markDone();
-            return Optional.of(this.repository.save(todoItem));
-        });
+        return optionalTodo.flatMap(this::doMarkAsDone);
+    }
+
+    private Optional<Todo> doMarkAsDone(Todo todoItem) {
+        todoItem.markDone();
+        return Optional.of(this.repository.save(todoItem));
     }
 
 }
