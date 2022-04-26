@@ -1,11 +1,10 @@
 package com.github.todo.domain.user;
 
-import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends Repository<User, Long> {
-    User save(User user);
+public interface UserRepository extends CrudRepository<User, Long> {
 
     boolean existsByUsername(String username);
 
