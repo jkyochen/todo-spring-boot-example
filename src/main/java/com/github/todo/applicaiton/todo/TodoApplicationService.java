@@ -7,9 +7,11 @@ import com.github.todo.domain.todo.TodoRepository;
 import com.github.todo.domain.user.User;
 import com.github.todo.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class TodoApplicationService {
 
     private final TodoRepository repository;
