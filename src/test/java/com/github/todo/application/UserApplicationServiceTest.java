@@ -1,4 +1,4 @@
-package com.github.todo.application.user;
+package com.github.todo.application;
 
 import com.github.todo.applicaiton.user.UserApplicationService;
 import com.github.todo.applicaiton.user.dto.UserLoginParameter;
