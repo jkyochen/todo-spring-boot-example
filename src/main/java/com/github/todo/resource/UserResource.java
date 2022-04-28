@@ -41,6 +41,7 @@ public class UserResource {
         if (user.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok().build();
+
+        return ResponseEntity.ok(user.get().getId());
     }
 }

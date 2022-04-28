@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +32,8 @@ public class UserResourceTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userParam))
-                .andExpect(status().isCreated());
+                .andReturn();
+
         assertThat(repository.existsByUsername("foo")).isEqualTo(true);
     }
 
@@ -42,10 +45,13 @@ public class UserResourceTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userParam))
                 .andExpect(status().isCreated());
-        mockMvc.perform(MockMvcRequestBuilders.post("/login")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userParam))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andReturn();
+
+        assertThat(result.getResponse().getContentAsString()).isEqualTo("1");
     }
 
 }
