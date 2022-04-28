@@ -1,16 +1,15 @@
 package com.github.todo.resource;
 
 import com.github.todo.applicaiton.todo.TodoApplicationService;
+import com.github.todo.applicaiton.todo.dto.TodoIndexParameter;
 import com.github.todo.applicaiton.todo.dto.TodoParameter;
 import com.github.todo.domain.todo.Todo;
 import com.github.todo.resource.request.AddTodoRequest;
+import com.github.todo.resource.request.MarkAsDoneRequest;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -40,10 +39,29 @@ public class TodoResource {
 
         final URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .build()
+                .path("/${id}")
+                .buildAndExpand(optionalTodo.get().getId())
                 .toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Todo> markTodoDone(@PathVariable final Long id, @RequestBody final MarkAsDoneRequest request) {
+        if (id <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (!request.isDone()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Todo> optionalTodo = this.service.markTodoDone(TodoIndexParameter.of(id));
+        if (optionalTodo.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok().build();
     }
 
 }
