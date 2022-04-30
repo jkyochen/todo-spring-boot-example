@@ -9,7 +9,7 @@ services:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: devPassword
-      MYSQL_DATABASE: todo_dev
+      MYSQL_DATABASE: todos
 
   adminer:
     image: adminer
