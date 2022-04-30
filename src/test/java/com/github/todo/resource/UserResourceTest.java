@@ -1,29 +1,32 @@
 package com.github.todo.resource;
 
+import com.github.todo.DBRollbackBaseTest;
+import com.github.todo.domain.user.User;
 import com.github.todo.domain.user.UserRepository;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Transactional
-public class UserResourceTest {
+public class UserResourceTest extends DBRollbackBaseTest {
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
     private UserRepository repository;
+
+    @AfterAll
+    public void tearDown() {
+        this.repository.deleteAll();
+    }
 
     @Test
     public void should_register_user() throws Exception {
@@ -45,13 +48,10 @@ public class UserResourceTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userParam))
                 .andExpect(status().isCreated());
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/login")
+        mockMvc.perform(MockMvcRequestBuilders.post("/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userParam))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        assertThat(result.getResponse().getContentAsString()).isEqualTo("1");
+                .andExpect(status().isOk());
     }
 
 }
