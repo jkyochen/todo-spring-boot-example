@@ -3,15 +3,18 @@
 ## Quick Start
 
 ```shell
-# run mysql and adminer web UI http://localhost:9090/
-# default user/password is root/devPassword
-docker-compose up -d
-
 # install dependencies
 mvn install
 
 # run test
 mvn test
+
+# run mysql and adminer web UI http://localhost:9090/
+# default user/password is root/devPassword
+docker-compose up -d
+
+# set environment
+cp .env.example .env
 
 # start serve
 mvn spring-boot:run
