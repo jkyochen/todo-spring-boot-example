@@ -34,3 +34,7 @@ java -jar target/todo-0.0.1-SNAPSHOT.jar
 https://github.com/fenixsoft/monolithic_arch_springboot
 
 https://github.com/dreamhead/geektime-todo
+
+## Document
+
+[CSRF With Stateless REST API](https://www.baeldung.com/csrf-stateless-rest-api)
